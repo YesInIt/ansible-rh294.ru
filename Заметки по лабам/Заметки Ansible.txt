@@ -1,0 +1,55 @@
+https://192.168.225.50/ui/
+Ansible@vmtraining.local
+Ansible!09_20$24!
+
+
+sa / pass
+
+
+
+
+машина тренера:
+DNS Name:	ws.lab.example.com
+IP Addresses:	172.16.195.142
+
+мой сервер управления
+DNS Name:	ws.lab.example.com
+IP Addresses:	172.16.195.155
+
+serverA
+DNS Name:	servera.lab.example.com
+IP Addresses:	172.16.195.163
+
+Инвентори по умолчанию лежит
+/etc/ansible/hosts
+
+
+
+Настройка Ansible
+/etc/ansible/ansible.cfg`-низкий приоритет
+~/.ansible.cfg - средний приоритет
+./ansible.cfg - высокий приоритет
+
+
+
+
+
+Плагины для VSCode:
+Remote -ssh
+Remote Explorer
+Remote tunels
+
+список управляемых хостов
+ansible all -i inventory.cfg --list-hosts
+
+пинг всех хостов
+ansible all -m ping
+
+Выполнить неидемпотентую команду(BAD)
+ansible all -m command -a /usr/bin/hostname -o
+
+Идемпотентные коанды через модули -m :
+ansible all -m command -a 'id'
+ansible all -m copy  -a 'content="This server is managed by Ansible.\n" dest=/etc/motd' --become
+ansible all -m command -a 'cat /etc/motd'
+ansible -m user -a 'name=newbie uid=4000 state=present' -b

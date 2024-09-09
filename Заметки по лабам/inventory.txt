@@ -1,0 +1,24 @@
+[usa]
+washington1.example.com
+washington2.example.com
+[canada]
+ontario01.example.com
+ontario02.example.com
+ontario03 ansible_host=192.0.2.42
+[north-america:children]
+canada
+usa
+
+servera.lab.example.com
+serverb.lab.example.com
+serverc.lab.example.com
+serverd.lab.example.com
+
+
+[internetweb]
+serverb.lab.example.com
+
+[intranetweb]
+servera.lab.example.com
+serverc.lab.example.com
+serverd.lab.example.com
