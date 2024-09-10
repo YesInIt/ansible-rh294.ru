@@ -102,3 +102,8 @@ https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#
 - hosts: all
   vars_files:
     - vars/users.yml
+
+##Вместо переменных в инвентори использовать каталоги group_vars и host_vars
+
+в group_vars создается файл по имени группы
+в host_vars создается файл с именем хоста
