@@ -5,7 +5,7 @@ Ansible!09_20$24!
 
 sa / pass
 
-
+https://www.perplexity.ai/
 
 
 машина тренера:
@@ -92,3 +92,13 @@ https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#
 - name: Creates the user {{ user }}
   user:  
     name: "{{ users }}"
+
+Переменные в плейбук можно определеить прямо или через файл:
+
+- hosts: all
+  vars:
+    users: joe
+
+- hosts: all
+  vars_files:
+    - vars/users.yml
