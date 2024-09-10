@@ -20,6 +20,12 @@ serverA
 DNS Name:	servera.lab.example.com
 IP Addresses:	172.16.195.163
 
+
+
+
+#Ansible день 1
+
+
 Инвентори по умолчанию лежит
 /etc/ansible/hosts
 
@@ -34,7 +40,7 @@ IP Addresses:	172.16.195.163
 
 
 
-Плагины для VSCode:
+Плагины для VSCode для удаленного подключения:
 Remote -ssh
 Remote Explorer
 Remote tunels
@@ -53,3 +59,36 @@ ansible all -m command -a 'id'
 ansible all -m copy  -a 'content="This server is managed by Ansible.\n" dest=/etc/motd' --become
 ansible all -m command -a 'cat /etc/motd'
 ansible -m user -a 'name=newbie uid=4000 state=present' -b
+
+
+#Ansible день 2
+
+Проверка синтаксиса плейбука
+ansible-playbook --syntax-check webserver.yml
+
+Проверка выполнения(сухой прогон)
+ansible-playbook -C webserver.yml
+
+
+Просмотр документации по модулям
+ansible-doc -l #список модулей
+ansible-doc user #инфа по конкретному модулю
+ansible-doc -s yum #инфа по конкретному модулю сокращенно
+
+Расположение модулей bultin
+/usr/lib/python3.9/site-packages/ansible/modules/
+
+
+## Модуль 4 Переменные
+
+!!нельзя называть пременные как имя модуля
+
+приоритет перменных:
+https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#where-to-set-variables
+
+
+Если переменная указана в начале ключа, тоее нужно помещать в кавычки
+
+- name: Creates the user {{ user }}
+  user:  
+    name: "{{ users }}"
