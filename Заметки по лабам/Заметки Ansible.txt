@@ -133,5 +133,20 @@ groups – перечисляет все группы и хосты в инве�
 inventory_hostname – содержит имя хоста для текущего управляемого хоста, настроенного в инвентаризации. Может отличаться от имени хоста, сообщаемого фактами, по различным причинам.
 
 
+# день 3
 
+Циклы
+vars:
+web_service: httpd
+fw_service: firewalld
+services:
+ - "{{ web_service }}"
+ - "{{ fw_service }}"
+    #Enable and start services
+    - name: Ensure services are started and enabled
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop: "{{ services }}"
 
