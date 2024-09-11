@@ -135,18 +135,45 @@ inventory_hostname – содержит имя хоста для текущег�
 
 ## Ansible день 3
 
-Циклы
-vars:
-web_service: httpd
-fw_service: firewalld
-services:
- - "{{ web_service }}"
- - "{{ fw_service }}"
-    #Enable and start services
-    - name: Ensure services are started and enabled
+### Циклы
+
+  vars:
+    web_service: httpd
+    fw_service: firewalld
+    services:
+     - "{{ web_service }}"
+     - "{{ fw_service }}"
+  #Enable and start services
+  - name: Ensure services are started and enabled
       service:
         name: "{{ item }}"
-        state: started
-        enabled: yes
-      loop: "{{ services }}"
+          state: started
+          enabled: yes
+        loop: "{{ services }}"
+### when
 
+Вот таблица в формате Markdown, созданная на основе предоставленного текста:
+
+## Условные обозначения
+
+| Условие                               | Пример                          |
+|---------------------------------------|---------------------------------|
+| Equal (value is a string)            | `ansible_machine == "x86_64"`  |
+| Equal (value is numeric)             | `max_memory == 512`            |
+| Less than                             | `min_memory < 128`             |
+| Greater than                          | `min_memory > 256`             |
+| Less than or equal to                | `min_memory <= 256`            |
+| Greater than or equal to             | `min_memory >= 512`            |
+| Not equal to                          | `min_memory != 512`            |
+| Variable exists                       | `min_memory is defined`        |
+| Variable does not exist               | `min_memory is not defined`    |
+
+## Операции
+
+| Операция                                                                 | Пример                          |
+|--------------------------------------------------------------------------|---------------------------------|
+| Булева переменная - это истина (true). Значения 1, True или yes оцениваются как true. | `memory_available`              |
+| Булева переменная равна false. Значения 0, False или no оцениваются как false. | `not memory_available`          |
+| Значение первой переменной присутствует как значение во второй список переменных | `ansible_distribution in supported_distros` |
+
+Вы можете использовать этот Markdown-код в любом редакторе, поддерживающем форматирование Markdown, чтобы отобразить таблицы.
