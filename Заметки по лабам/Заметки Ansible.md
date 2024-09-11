@@ -191,5 +191,29 @@ when: >
 
 > **Информация:** Переменная {{ ansible_mounts }} в Ansible содержит информацию о всех смонтированных файловых системах на целевой машине.
 
-параметр игнорирования ошибок в таске
+> **Информация:** параметр игнорирования ошибок в таске
 ignore_errors: yes
+
+
+#### handlers
+
+* хендлеры при упоминании несколько раз выполняются тольок 1 раз
+* Хендлеры записываются в конце плея
+* Хендлеры выполняются по порядку записи в плейбуке
+
+синтаксис:
+
+```yaml
+      - name: Copy Config Files
+        copy:
+          src: "{{ item.src }}"
+          dest: "{{ item.dest }}"
+        loop: "{{ web_config_files }}"
+        notify: restart web service
+#Add handlers
+  handlers:
+    - name: Restart web service
+      service:
+        name: "{{ web_service }}"
+        state: restarted
+```
