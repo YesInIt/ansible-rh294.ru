@@ -188,3 +188,5 @@ when: >
     ( ansible_distribution == "Fedora" and
       ansible_distribution_major_version == "28" )
 ```
+
+> **Информация:** Переменная {{ ansible_mounts }} в Ansible содержит информацию о всех смонтированных файловых системах на целевой машине.
