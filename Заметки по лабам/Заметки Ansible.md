@@ -304,3 +304,5 @@ when: item is regex('^SSLFile.*')
 /etc/bashrc
 ~/.bashrc
 
+скелет для новых пользователей хранится в 
+ls -lah /etc/skel/
