@@ -180,8 +180,8 @@ inventory_hostname – содержит имя хоста для текущег�
 
 
 #### Синтаксис сложного условия
-when: > 
-    ( ansible_distribution == "RedHat" and
+when:
+  - ( ansible_distribution == "RedHat" and
       ansible_distribution_major_version == "7" )
     or
     ( ansible_distribution == "Fedora" and
