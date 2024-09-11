@@ -180,10 +180,11 @@ inventory_hostname – содержит имя хоста для текущег�
 
 
 #### Синтаксис сложного условия
-when:
+```yaml
+when: >
   - ( ansible_distribution == "RedHat" and
       ansible_distribution_major_version == "7" )
     or
     ( ansible_distribution == "Fedora" and
       ansible_distribution_major_version == "28" )
-
+```
