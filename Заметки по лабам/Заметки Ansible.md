@@ -275,3 +275,17 @@ changed_when: "'Success' in comand_result.stdout"
           debug:
             msg: "Завершение выполнения плейбука, независимо от успеха или неудачи."
 ```
+
+
+### Использование regex
+это в условиях
+when: item is regex('^SSLFile.*')
+
+это фактах:
+- name: Извлечение строк, соответствующих регулярному выражению
+      set_fact:
+        matched_lines: "{{ file_content.stdout_lines | regex_search('^SSLFile.*') }}
+## Файлы и темплейты
+при обработке конфигов, грепаем строки без # и вносим переменные для .j2
+
+
