@@ -341,3 +341,25 @@ qa
 например можно брать плагина
 https://github.com/ansible/ansible/tree/release1.5.0/plugins
 
+посмотреть дерево инвентори:
+ansible-inventory -i ./lab3/inventory/inventory --graph
+
+
+#### Форки и сериал
+одновременный запуск 
+ansible-config dump |grep -i forks
+
+править в конфиге
+[student@demo ~]$ grep forks ansible.cfg forks = 5
+
+serial жостко указывает сколько должно быть выполнено хостов успешно в плее. Если неуспешно хотя бы один, плей останавливается
+
+весь плей выполняется только на 2 хоста, если успешно, то следующие 2 хоста
+---
+- name: шаблооны хостов
+  hosts: webservers
+  serial:2
+
+
+форки - это вилки
+сериал - это серии
