@@ -336,7 +336,7 @@ test1
 test2
 qa
 
-#### Динамический инвентори
+### Динамический инвентори
 
 например можно брать плагина
 https://github.com/ansible/ansible/tree/release1.5.0/plugins
@@ -348,7 +348,7 @@ ansible-inventory -i ./lab3/inventory/inventory --graph
 ansible-inventory -i ./lab3/inventory/inventory --list
 
 
-#### Форки и сериал
+### Форки и сериал
 одновременный запуск 
 ansible-config dump |grep -i forks
 
@@ -357,37 +357,45 @@ ansible-config dump |grep -i forks
 
 serial жостко указывает сколько должно быть выполнено хостов успешно в плее. Если неуспешно хотя бы один, плей останавливается
 
-весь плей выполняется только на 2 хоста, если успешно, то следующие 2 хоста
+весь плей выполняется только на 2 хоста, если успешно, то следующие 2 хоста 
+```yaml
 ---
 - name: шаблооны хостов
   hosts: webservers
   serial:2
-
+```
 
 форки - это вилки
 сериал - это серии
 
-#### Импорт плейбуков и тасков
+### Импорт плейбуков и тасков
 уровень плеев
+
+```yaml
 -name: import plybook
  import_playbook: web.yml
+```
 
 уровень тасков, импорт тасков/ в yml таски прописаны подряд с нулевого уровня. файл только с тасками
+
+```yaml
 -name: import tasks
  hosts: webservers
  tasks:
  - import_tasks: webserver_tasks.yml
-
+```
 импорт полностью формирует плейбук и после выполняет его. этостаическое созание плейбука.
 
 
 Инклюд подключает таски только в момент выполнения  инклуд таска,
 в начале работы плейбука про инклуд таски нкто незнает.
 
+```yaml
 -name: include tasks
  hosts: webservers
  tasks:
  - include_tasks: webserver_tasks.yml
+```
 
 Re-using files and roles
 Ansible offers two ways to reuse files and roles in a playbook: dynamic and static.
