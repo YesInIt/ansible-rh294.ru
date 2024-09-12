@@ -312,6 +312,7 @@ ls -lah /etc/skel/
 
 
 Шаблоны хостов - это использование подстановочных знаков в плеях в разделе 
+
 ---
 - name: шаблооны хостов
   hosts: webservers,$msk,!serverb
@@ -334,3 +335,9 @@ test2.ru
 test1
 test2
 qa
+
+#### Динамический инвентори
+
+например можно брать плагина
+https://github.com/ansible/ansible/tree/release1.5.0/plugins
+
