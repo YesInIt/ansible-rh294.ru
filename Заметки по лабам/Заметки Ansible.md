@@ -533,4 +533,34 @@ ansible-galaxy collection install my_namespace.my_collection –upgrade
 ansible-galaxy collection install my_namespace-my_collection-1.0.0.tar.gz \ -p ./collections
 #build and install a collection from a local source directory
 ansible-galaxy collection install /path/to/collection -p ./collections
+
+#удаление колекции
+rm -rf ~/.ansible/collections/ansible_collections/community/general
+```
+
+список колекций
+ansible-galaxy collection list
+
+
+/usr/lib/python3.9/site-packages/ansible_collections
+
+```yaml
+- name: Reference collections contents using their FQCNs
+hosts: all tasks:
+- name: Import a role ansible.builtin.import_role:
+name: my_namespace.my_collection.role1
+- name: Call a module
+my_namespace.mycollection.my_module: option1: value
+- name: Call a debug task
+ansible.builtin.debug:
+msg: '{{ lookup("my_namespace.my_collection.lookup1", 'param1')| my_namespace.my_collection.filter1 }}'
+```
+
+зависимости от коллекции можно указать внутри роли
+```yaml
+# myrole/meta/main.yml
+collections:
+- my_namespace.first_collection
+- my_namespace.second_collection
+- other_namespace.other_collection
 ```
