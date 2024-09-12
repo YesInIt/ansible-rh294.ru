@@ -430,7 +430,10 @@ import_tasks
           - git
           - curl
         state: present
-
+  roles:
+    - role: common
+    - role: webserver
+    - role: database
   tasks:
     - name: Clone repository
       git:
@@ -456,15 +459,78 @@ import_tasks
       file:
         path: /tmp/some_temp_file
         state: absent
-
-  roles:
-    - role: common
-    - role: webserver
-    - role: database
-
   handlers:
     - name: Restart application
       service:
         name: my_application
         state: restarted
+```
+можно инклудить роль внутрь таска
+```yaml
+---
+- name: Install and configure Nginx
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Include Nginx role
+      include_role:
+        name: nginx
+```
+
+
+вывести список ролей
+ansible-galaxy role list
+
+
+ложить роли можно в 
+Ansible ищет роли в следующих местах:
+В каталоге roles/: Относительно файла плейбука.
+В /etc/ansible/roles: Это стандартный путь для хранения ролей.
+В пользовательском каталоге: Обычно это ~/.ansible/roles.
+В каталогах, указанных в конфигурации: Вы можете настроить дополнительные пути для поиска ролей в файле ansible.cfg с помощью параметра roles_path.
+Полный путь к роли: Вы можете указать полный путь к роли при вызове в плейбуке.
+
+Если я использую зависимости роли из ансибле гелекси, то роль подтянется сама при запуске моей роли, если в ./meta/main.yml
+прописан параметр
+```yaml
+---
+dependencies:
+
+```
+
+
+установка роли
+ansible-galaxy install geerlingguy.apache -p roles/
+
+Установка ролей из requirements.yml
+Чтобы установить роли, указанные в requirements.yml, выполните следующую команду:
+bash
+ansible-galaxy install -r requirements.yml
+
+Эта команда установит все роли, перечисленные в файле requirements.yml, в стандартный каталог ролей (обычно /etc/ansible/roles или ~/.ansible/roles).
+
+```yaml
+---
+roles:
+  - src: geerlingguy.apache
+    version: 1.0.0
+  - src: geerlingguy.mysql
+    version: 3.0.0
+  - src: git+https://github.com/username/my_custom_role.git
+
+```
+установка роли в папку
+ansible-galaxy install -r roles/requirements.yml -p roles
+
+устновка коллекции 
+```yaml
+#install a collection hosted in Galaxy
+ansible-galaxy collection install my_namespace.my_collection
+#upgrade a collection to the latest available version
+ansible-galaxy collection install my_namespace.my_collection –upgrade
+#directly use the tarball from your build
+ansible-galaxy collection install my_namespace-my_collection-1.0.0.tar.gz \ -p ./collections
+#build and install a collection from a local source directory
+ansible-galaxy collection install /path/to/collection -p ./collections
 ```
