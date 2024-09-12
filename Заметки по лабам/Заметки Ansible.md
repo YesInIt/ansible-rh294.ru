@@ -378,7 +378,7 @@ serial жостко указывает сколько должно быть вы
  tasks:
  - import_tasks: webserver_tasks.yml
 
- импорт полностью формирует плейбук и после выполняет его. этостаическое созание плейбука.
+импорт полностью формирует плейбук и после выполняет его. этостаическое созание плейбука.
 
 
 Инклюд подключает таски только в момент выполнения  инклуд таска,
@@ -389,21 +389,19 @@ serial жостко указывает сколько должно быть вы
  tasks:
  - include_tasks: webserver_tasks.yml
 
-##### Re-using files and roles
-
+Re-using files and roles
 Ansible offers two ways to reuse files and roles in a playbook: dynamic and static.
 
-###### Dynamic reuse
+For dynamic reuse, add an include_* task in the tasks section of a play:
 
-For dynamic reuse, add an `include_*` task in the tasks section of a play:
+include_role
 
-- `include_role`
-- `include_tasks` 
-- `include_vars`
+include_tasks
 
-###### Static reuse
+include_vars
 
-For static reuse, add an `import_*` task in the tasks section of a play:
+For static reuse, add an import_* task in the tasks section of a play:
 
-- `import_role`
-- `import_tasks`
+import_role
+
+import_tasks
