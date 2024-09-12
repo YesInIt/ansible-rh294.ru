@@ -344,6 +344,9 @@ https://github.com/ansible/ansible/tree/release1.5.0/plugins
 посмотреть дерево инвентори:
 ansible-inventory -i ./lab3/inventory/inventory --graph
 
+посмотреть json инвентори:
+ansible-inventory -i ./lab3/inventory/inventory --list
+
 
 #### Форки и сериал
 одновременный запуск 
@@ -363,3 +366,44 @@ serial жостко указывает сколько должно быть вы
 
 форки - это вилки
 сериал - это серии
+
+#### Импорт плейбуков и тасков
+уровень плеев
+-name: import plybook
+ import_playbook: web.yml
+
+уровень тасков, импорт тасков/ в yml таски прописаны подряд с нулевого уровня. файл только с тасками
+-name: import tasks
+ hosts: webservers
+ tasks:
+ - import_tasks: webserver_tasks.yml
+
+ импорт полностью формирует плейбук и после выполняет его. этостаическое созание плейбука.
+
+
+Инклюд подключает таски только в момент выполнения  инклуд таска,
+в начале работы плейбука про инклуд таски нкто незнает.
+
+-name: include tasks
+ hosts: webservers
+ tasks:
+ - include_tasks: webserver_tasks.yml
+
+##### Re-using files and roles
+
+Ansible offers two ways to reuse files and roles in a playbook: dynamic and static.
+
+###### Dynamic reuse
+
+For dynamic reuse, add an `include_*` task in the tasks section of a play:
+
+- `include_role`
+- `include_tasks` 
+- `include_vars`
+
+###### Static reuse
+
+For static reuse, add an `import_*` task in the tasks section of a play:
+
+- `import_role`
+- `import_tasks`
