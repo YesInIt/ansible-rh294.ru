@@ -309,7 +309,7 @@ ls -lah /etc/skel/
 
 
 ## Ansible день 4
-
+### Модуль 7
 
 Шаблоны хостов - это использование подстановочных знаков в плеях в разделе 
 
@@ -413,3 +413,58 @@ For static reuse, add an import_* task in the tasks section of a play:
 import_role
 
 import_tasks
+
+
+### Модуль 8 Упрощение наборов сценариев с помощью ролей и коллекций.
+
+```yaml
+---
+- name: Example Playbook
+  hosts: all
+  gather_facts: yes
+
+  pre_tasks:
+    - name: Check for required packages
+      package:
+        name:
+          - git
+          - curl
+        state: present
+
+  tasks:
+    - name: Clone repository
+      git:
+        repo: 'https://github.com/example/repo.git'
+        dest: '/opt/repo'
+      notify: Restart application
+
+    - name: Install dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - python3
+        - python3-pip
+
+    - name: Run application
+      command: python3 /opt/repo/app.py
+      async: 10
+      poll: 0
+
+  post_tasks:
+    - name: Clean up temporary files
+      file:
+        path: /tmp/some_temp_file
+        state: absent
+
+  roles:
+    - role: common
+    - role: webserver
+    - role: database
+
+  handlers:
+    - name: Restart application
+      service:
+        name: my_application
+        state: restarted
+```
