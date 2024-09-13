@@ -691,3 +691,6 @@ check_mode: no # таска всегда будет выполняться, да
         state: present
       when: ansible_os_family == "Debian"
 ```
+
+
+**ВАЖНО по /dev** нужно всегда заполнять LABEL на дисках
