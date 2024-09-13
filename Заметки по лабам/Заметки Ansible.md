@@ -483,6 +483,11 @@ import_tasks
 ansible-galaxy role list
 
 
+включить запись логов можно в ansible.cfg
+log_path = /var/log/ansible.log
+
+сделать права на это файл заранее
+
 ложить роли можно в 
 Ansible ищет роли в следующих местах:
 В каталоге roles/: Относительно файла плейбука.
@@ -564,3 +569,19 @@ collections:
 - my_namespace.second_collection
 - other_namespace.other_collection
 ```
+
+создание скелета роли
+ansible-galaxy init <имя роли>
+
+
+
+## Ansible день 5 Устранение проблем в Ansible.
+
+Логи писать в /var/log
+Ротация логов
+ /etc/logrotate.d/
+создается отдельный файлик, ожно копировать с имеющихся или дописывать в существующие правила
+
+лог ротейт прописан в crontab
+/etc/chrontab
+
