@@ -619,4 +619,17 @@ ansible-playbook -С example_playbook.yml
 check_mode: yes # таска всегда всгде только в режиме check
 check_mode: no # таска всегда будет выполняться, даже в режиме check
 
+```yaml
+---
+- name: Run a script on remote nodes with parameters
+  hosts: all
+  tasks:
+    - name: Run a script only if the output file does not exist
+      ansible.builtin.script: /path/to/local/script.sh --some-argument
+      args:
+        chdir: /tmp/                  # Указывает директорию, в которую нужно перейти перед выполнением скрипта.
+        executable: /bin/bash         # Указывает, какой интерпретатор использовать для выполнения скрипта.
+        creates: /tmp/output.txt      # Указывает файл, который должен существовать, чтобы избежать повторного выполнения скрипта.
+        removes: /tmp/tempfile.txt     # Указывает файл, который должен отсутствовать, чтобы выполнить скрипт.
 
+```
