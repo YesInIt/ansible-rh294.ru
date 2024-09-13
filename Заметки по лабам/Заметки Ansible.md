@@ -633,3 +633,61 @@ check_mode: no # таска всегда будет выполняться, да
         removes: /tmp/tempfile.txt     # Указывает файл, который должен отсутствовать, чтобы выполнить скрипт.
 
 ```
+Для запроса переменных можно либо vars_promt
+```yaml
+---
+- name: Пример запроса ввода переменной
+  hosts: localhost
+  gather_facts: no
+  vars_prompt:
+    - name: user_input
+      prompt: "Введите значение переменной"
+      private: no  # Установите в true, если хотите скрыть ввод (например, для паролей)
+
+  tasks:
+    - name: Показать введенное значение
+      debug:
+        msg: "Вы ввели: {{ user_input }}"
+```
+
+либо модуль promt
+```yaml
+---
+- name: Пример запроса переменной в середине плейбука
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: Выполнение первой задачи
+      debug:
+        msg: "Это первая задача."
+
+    - name: Запрос ввода переменной у пользователя
+      pause:
+        prompt: "Введите значение переменной"
+      register: user_input
+
+    - name: Показать введенное значение
+      debug:
+        msg: "Вы ввели: {{ user_input.user_input }}"
+```
+
+установка GPG key
+```yaml
+- name: Import GPG key for CentOS repository
+  hosts: all
+  tasks:
+    - name: Add GPG key for CentOS repository
+      ansible.builtin.rpm_key:
+        state: present
+        key: https://example.com/RPM-GPG-KEY
+      when: ansible_os_family == "RedHat"
+- name: Add GPG key for Debian repository
+  hosts: all
+  tasks:
+    - name: Add GPG key for Debian repository
+      ansible.builtin.apt_key:
+        url: https://example.com/debian-gpg-key.gpg
+        state: present
+      when: ansible_os_family == "Debian"
+```
