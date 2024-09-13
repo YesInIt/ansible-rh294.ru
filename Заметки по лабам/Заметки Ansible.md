@@ -585,3 +585,38 @@ ansible-galaxy init <имя роли>
 лог ротейт прописан в crontab
 /etc/chrontab
 
+в модуле дебаг можно менять режим verbisity
+```yaml
+- name: Example of debug with verbosity
+  debug:
+    var: my_variable
+    verbosity: 2
+```
+
+
+
+Проверить синтакс
+[student@demo ~]$ ansible-playbook play.yml --syntax-check
+Подверждения каждого шага
+[student@demo ~]$ ansible-playbook play.yml --step
+
+[student@demo ~]$ ansible-playbook play.yml --start-at-task="start httpd service"
+
+
+список тасков с тегами
+ansible-playbook example_playbook.yml --list-tasks
+запустить все таски с тегом web
+ansible-playbook example_playbook.yml --tags web
+запустить все таски кроме cleanup
+ansible-playbook example_playbook.yml --skip-tags cleanup
+
+проверка плейбука
+ansible-playbook --check example_playbook.yml
+или
+ansible-playbook -С example_playbook.yml
+
+в тасках есть параметр :
+check_mode: yes # таска всегда всгде только в режиме check
+check_mode: no # таска всегда будет выполняться, даже в режиме check
+
+
